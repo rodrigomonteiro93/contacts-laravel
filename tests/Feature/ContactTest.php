@@ -3,34 +3,43 @@
 namespace Tests\Feature;
 
 use App\Entities\Contact;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Symfony\Component\Console\Input\Input;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class ContactTest extends TestCase
 {
 
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
-    public function testCreateUser()
+    public function testStore()
     {
-        Contact::create([
-            'name' => 'Rodrigo monteiro',
-            'email' => 'rodrigomonteirodesenv@gmail.com',
+        $faker = \Faker\Factory::create();
+        $file = \Illuminate\Http\UploadedFile::fake()->create('test.txt');
+
+        $response = $this->json('POST', route('contact.store'), [
+            'name' => $faker->name,
+            'email' => $faker->email,
             'phone' => '(51) 99284-7232',
-            'file' => 'nomedoarquivo.pdf',
-            'ip' => '127.0.0.1',
+            'file' => $file,
+            'ip' => $faker->ipv4,
             'message' => 'Lorem ipsum dollor'
         ]);
-        $this->assertDatabaseHas('contacts', ['name' => 'Rodrigo monteiro']);
+
+        $id = $response->json('id');
+        $data = Contact::where('id', $id)->get();
+
+        $responseTest = $response->json('contact');
+        $data = $data->toArray()[0];
+
+        $this->assertEquals($responseTest, $data);
     }
 
-    public function testViews(){
+    public function testIndex(){
         $testHome = $this->get('/');
         $testHome->assertStatus(200);
+    }
 
+    public function testContactList(){
         $testContacts = $this->get('/meus-contatos');
         $testContacts->assertViewHas('contacts');
         $testContacts->assertStatus(200);

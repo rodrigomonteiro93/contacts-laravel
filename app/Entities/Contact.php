@@ -21,6 +21,8 @@ class Contact extends Model implements Transformable
      *
      * @var array
      */
+    protected $dates = ['deleted_at'];
+
     protected $fillable = [
         'name',
         'email',

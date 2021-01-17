@@ -33,9 +33,6 @@ Técnologias
 - Laravel framework
 - Jquery
 - Pré-compilador scss
-
-Links online
-- http://www.agencias3.web2217.uni5.net/rodrigo/projects/contact-laravel/
-- http://www.agencias3.web2217.uni5.net/rodrigo/projects/contact-laravel/meus-contatos
+- Test phpUnit
 
 Por Rodrigo Monteiro

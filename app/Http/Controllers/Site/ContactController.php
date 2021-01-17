@@ -58,13 +58,18 @@ class ContactController extends Controller
                 }
             }
             $data['validFile'] = '';
-            $contact = $this->repository->create($data);
+            $contactCreated = $this->repository->create($data);
+
+            //getContactForTest
+            $contact = $this->repository->find($contactCreated->id);
 
             $this->sendMail($contact);
 
             $msgSucess = 'Contato enviado com sucesso! <a href="'.route('contact.show').'" title="Clique aqui para ver todos os contatos">Clique aqui para ver todos os contatos</a>';
 
             return response()->json([
+                'id' => $contact->id,
+                'contact' => $contact,
                 'status' => 200,
                 'message' => $msgSucess
             ]);
