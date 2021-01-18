@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use App\Entities\Contact;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ContactTest extends TestCase
 {
 
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testStore()
     {
