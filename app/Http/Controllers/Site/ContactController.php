@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\contact;
 use App\Validators\ContactValidator;
 use App\Repositories\ContactRepository;
 use App\Mail\Site\Contact\ContactClientMail;
@@ -83,10 +84,7 @@ class ContactController extends Controller
     }
 
     private function sendMail($contact){
-        //email admin
-        Mail::to(env('MAIL_FROM_ADDRESS'))->queue(new ContactMail($contact));
-        //email client
-        return Mail::to($contact)->queue(new ContactClientMail($contact));
+        contact::dispatch($contact)->delay(now()->addSeconds('15'));
     }
 
     private function uploadFile($request, $data, $path, $file)

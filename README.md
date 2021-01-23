@@ -11,6 +11,10 @@ Configurar database
 - preencher as configurações do database: https://prnt.sc/wxwkgk
 - Rodar as migrações com o comando "php artisan migrate"
 
+Executar filas de disparos de e-mail ambiente de desenvolvimento
+- executar o comando: php artisan queue:work
+- As filas são executadas após 15 segundos do envio do contato
+
 Configuração de e-mail para ambiente de desenvolvimento
 - Editar o arquivo .env na raiz do projeto
 - usar as configurações do https://mailtrap.io: https://prnt.sc/wxrqi2
@@ -33,6 +37,7 @@ Técnologias
 - Laravel framework
 - Jquery
 - Pré-compilador scss
-- Test phpUnit
+- Tests phpUnit
+- Filas/Jobs
 
 Por Rodrigo Monteiro
